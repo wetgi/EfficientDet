@@ -20,6 +20,7 @@ import numpy as np
 from six import raise_from
 import cv2
 import xml.etree.ElementTree as ET
+import glob
 
 voc_classes = {
     '0': 0,
@@ -27,7 +28,6 @@ voc_classes = {
     '2': 2,
     '3': 3
 }
-
 
 def _findNode(parent, name, debug_name=None, parse=None):
     if debug_name is None:
@@ -76,8 +76,7 @@ class PascalVocGenerator(Generator):
         self.data_dir = data_dir
         self.set_name = set_name
         self.classes = classes
-        self.image_names = [l.strip().split(None, 1)[0] for l in
-                            open(os.path.join(data_dir, 'ImageSets', 'Main', set_name + '.txt')).readlines()]
+        self.image_names = [os.path.splitext(os.path.basename(x))[0] for x in glob.glob(data_dir + '/JPEGImages/*.jpg') ]
         self.image_extension = image_extension
         self.skip_truncated = skip_truncated
         self.skip_difficult = skip_difficult
