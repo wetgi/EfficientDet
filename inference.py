@@ -29,7 +29,7 @@ def main():
                             score_threshold=score_threshold)
     model.load_weights(model_path, by_name=True)
 
-    for image_path in glob.glob('datasets/VOC2007/JPEGImages/*.jpg'):
+    for image_path in glob.glob('datasets/VOC2012/JPEGImages/*.jpg'):
         image = cv2.imread(image_path)
         src_image = image.copy()
         # BGR -> RGB
